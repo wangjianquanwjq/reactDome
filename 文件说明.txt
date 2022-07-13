@@ -1,0 +1,7 @@
+-mock mock数据
+-src 项目代码存放目录
+-eslintrc.js eslint配置文件
+-.prettierrc 代码格式化配置
+-.umirc.ts umi配置文件
+-tsconfig.json ts配置文件
+-typings.d.ts 全局类型声明文件
