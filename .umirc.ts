@@ -29,7 +29,7 @@ export default defineConfig({
   },
   proxy: {
     '/iot': {
-      target: 'http://172.18.14.253:8013', // 服务端域名
+      target: 'http://test-member.hopekoruit.com', // 服务端域名
       changeOrigin: true, // 允许域名进行转换
       pathRewrite: { '^/iot': '' },
     },

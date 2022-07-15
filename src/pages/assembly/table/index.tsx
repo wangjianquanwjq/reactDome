@@ -6,7 +6,8 @@ export default () => {
       <span
         onClick={() => {
           let params = {
-            name: '王',
+            pageSize: 10,
+            start: 0,
           };
           Api.apiTest1(params).then((res) => {
             console.log('get :', res);

@@ -2,7 +2,8 @@ import axios, { AxiosInstance } from 'axios';
 import { message } from 'antd';
 import qs from 'qs';
 import { paramFilter } from './types';
-import { BASE_URL } from './config';
+import { BASE_URL, AppConfigPro } from './config';
+
 message.config({
   duration: 1,
   maxCount: 1,
@@ -14,11 +15,11 @@ message.config({
 
 const instance: AxiosInstance = axios.create({
   timeout: 5000, // 超时时间
-  baseURL: BASE_URL,
+  baseURL: '/',
   headers: {
     'Content-Type': 'application/json',
     'x-token':
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOiIyMDIyMDcxNDA4NDMwOCIsIngtdXNlck5hbWUiOiLluIzmnJvpk7bolajpl6jlupflhajnp7AiLCJ4LXRlbmFudCI6MTAwMDEsIngtdHlwZSI6IlRFTkFOVF9QRVJTT04iLCJ4LXVzZXJJZCI6MiwiZXhwIjoiMjAyMjA3MTQwOTEzMDgiLCJpYXQiOiIyMDIyMDcxNDA4NDMwOCJ9.QAHyQ1SjpFK_3CEI_2fMLzMvqgMPTvwlmz1K7ghHeIg',
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOiIyMDIyMDcxNTExMDYwOCIsIngtdXNlck5hbWUiOiLogIHpmYjpl6jlupciLCJ4LXRlbmFudCI6MTAwMDEsIngtdHlwZSI6IlRFTkFOVF9QRVJTT04iLCJ4LXVzZXJJZCI6NzgsImV4cCI6IjIwMjIwNzE1MTEzNjA4IiwiaWF0IjoiMjAyMjA3MTUxMTA2MDgifQ.oDaApRHN6qDZorum9vPVMJgxDhtWjR-C8NxbCiB4gy8',
   },
 });
 
@@ -107,6 +108,7 @@ instance.interceptors.response.use(
  */
 const defaultConfig = { showLoading: true };
 function get(
+  server: VPS,
   url: string,
   params?: object,
   showLoading?: object,
@@ -115,7 +117,11 @@ function get(
   params = paramFilter(params);
   return new Promise((resolve, reject) => {
     instance
-      .get(url, { params, ...defaultConfig, ...showLoading })
+      .get(server + AppConfigPro[server].baseUrl + url, {
+        params,
+        ...defaultConfig,
+        ...showLoading,
+      })
       .then((res) => {
         resolve(res);
       })
@@ -150,7 +156,10 @@ function post(
   }
   return new Promise((resolve, reject) => {
     instance
-      .post(server + url, param, { ...defaultConfig, ...config })
+      .post(server + AppConfigPro[server].baseUrl + url, param, {
+        ...defaultConfig,
+        ...config,
+      })
       .then((res) => {
         resolve(res);
       })
@@ -168,11 +177,5 @@ export default {
 };
 export enum VPS {
   TENANT = 'tenant',
-  NURSE = 'nurse',
-  MEMBER = 'member',
-  OPERATION = 'operation',
-  FILESERVER = 'fileServer',
   IOT = 'iot',
-  IOTSERVER = 'iotServer',
-  WARNINGSERVER = 'warningServer',
 }
