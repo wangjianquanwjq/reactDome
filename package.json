@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
+    "amiya": "^0.57.0",
     "antd": "^4.21.6",
     "axios": "^0.27.2",
     "react": "17.x",
